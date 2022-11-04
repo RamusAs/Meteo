@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
+import { useEffect, useRef } from 'react'
 import { Pressable, StyleSheet, Text, Image, View, Button } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { useGetCityMeteo } from '../hooks'
@@ -6,27 +7,33 @@ import { useGetCityMeteo } from '../hooks'
 export const Article = ({ city, onDelete }) => {
   const { current, loading } = useGetCityMeteo(city, [city])
   const navigation = useNavigation()
-
+  const swipeableRef = useRef()
 
   const renderRightActions = (progress, dragX, onClick) => {
     return (
       <View
-        style={{...styles.container, backgroundColor: 'red', width: 100, }}>
+        style={{...styles.container, backgroundColor: 'red', width: 120, margin: 0, justifyContent: 'center', padding: 0, alignItems: 'center' }}>
         <Button color="white" onPress={onClick} title="DELETE"></Button>
       </View>
     )
   }
 
+  useEffect(()  => closeSwipeable(), [onDelete])
+
+  const closeSwipeable = () => {
+    swipeableRef.current.close();
+  }
+
 
   return (
     <Swipeable
+      ref={swipeableRef}
       renderRightActions={(progress, dragX) =>
         renderRightActions(progress, dragX, onDelete)
       }
-      onSwipeableOpen={() => console.log(close)}
-      rightOpenValue={-50}
+      rightOpenValue={-100}
     >
-      <Pressable style={styles.container} onPress={() =>
+      <Pressable style={styles.container} delayLongPress={10} onLongPress={() =>
           navigation.navigate('Detail', {city: city})
         }>
         { !loading && <>
@@ -70,9 +77,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignContent: 'center',
     padding: '5%',
-    width: "80%",
+    width: "90%",
     height: 120,
-    marginLeft: 50,
+    marginHorizontal: 20,
     marginVertical: 5,
     borderRadius: 5,
     backgroundColor: "white",

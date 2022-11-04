@@ -1,19 +1,29 @@
-import {useEffect, useState, useCallback} from 'react'
-import {  StyleSheet,  ScrollView, StatusBar, SafeAreaView, View, Text, Alert } from 'react-native'
-import { Article, Button, SearchBar, SwipeToDelete } from '../componants'
+import {useEffect, useState} from 'react'
+import {  StyleSheet,  ScrollView, StatusBar, View, Text, Alert, FlatList } from 'react-native'
+import { Article, Button, SearchBar } from '../componants'
 import { useAtom, citiesAtom } from "../store"
 import { isCity } from '../helpers/match'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const Home = () => {
+
+  const { bottom } = useSafeAreaInsets()
+  
   const [searchInput, setSearchInput] = useState("")
   const [filtredCities, setFiltredCities] = useState(cities)
   const [cities, setCities] = useAtom(citiesAtom)
 
+  const [refreshing, setrefreshing] = useState(false)
+
   useEffect(() => {
-    if (searchInput)
+    if (searchInput) {
       setFiltredCities(cities.filter((city) => city.match(searchInput.toLowerCase().trim()))) // on test la recherche en minuscule et sans les espaces en début et en fin
-    else setFiltredCities(cities)
-  }, [searchInput])
+      setrefreshing(false)
+    } else {
+      setFiltredCities(cities)
+      setrefreshing(false)
+    }
+  }, [searchInput,refreshing])
 
   useEffect(() => { setFiltredCities(cities) },[cities])
 
@@ -40,13 +50,23 @@ export const Home = () => {
     ) 
   }
 
+  const onDelete = (el) => {
+    setCities((cities => cities.filter(city =>  city !== el )))
+  }
+
+  const renderItem = ({ item }) => <Article city={item} onDelete={() => onDelete(item)}></Article>;
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={{...styles.container, paddingBottom: bottom}}>
       <SearchBar onChange={setSearchInput} />
       {filtredCities?.length !== 0 &&
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          {filtredCities?.map((_, key )=> <Article city={_} key={key} onDelete={console.log('delete')}></Article>)}
-        </ScrollView>
+        <FlatList
+          data={filtredCities}
+          renderItem={renderItem}
+          keyExtractor={(item) => item}
+          refreshing={refreshing}
+          onRefresh={() => setrefreshing(true)}
+        />
       }
       {filtredCities?.length === 0 &&
         <>
@@ -57,7 +77,7 @@ export const Home = () => {
           </View>
         </>
       }
-    </SafeAreaView>
+    </View>
   )
 }
 
