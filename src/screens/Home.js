@@ -3,7 +3,7 @@ import {  StyleSheet,  ScrollView, StatusBar, View, Text, Alert, FlatList } from
 import { Article, Button, SearchBar } from '../componants'
 import { useAtom, citiesAtom } from "../store"
 import { isCity } from '../helpers/match'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const Home = () => {
 
@@ -11,13 +11,14 @@ export const Home = () => {
   
   const [searchInput, setSearchInput] = useState("")
   const [filtredCities, setFiltredCities] = useState(cities)
+  const initialCities = filtredCities
   const [cities, setCities] = useAtom(citiesAtom)
 
   const [refreshing, setrefreshing] = useState(false)
 
   useEffect(() => {
     if (searchInput) {
-      setFiltredCities(cities.filter((city) => city.match(searchInput.toLowerCase().trim()))) // on test la recherche en minuscule et sans les espaces en début et en fin
+      setFiltredCities([...initialCities,...cities]) // on test la recherche en minuscule et sans les espaces en début et en fin
       setrefreshing(false)
     } else {
       setFiltredCities(cities)

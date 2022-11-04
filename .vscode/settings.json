@@ -1,0 +1,6 @@
+{
+  "prettier.singleAttributePerLine": true,
+  "prettier.semi": false,
+  "prettier.useTabs": true,
+  "prettier.vueIndentScriptAndStyle": true
+}
