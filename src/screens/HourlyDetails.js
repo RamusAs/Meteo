@@ -3,16 +3,17 @@ import { HourlyDetailsCard } from "../componants/HourlyDetailsCard"
 import { FlatList } from "react-native"
 import { useState } from "react"
 import { useRoute } from "@react-navigation/native"
+import { useTheme } from "../hooks"
 
 export const HourlyDetails = () => {
+	const theme = useTheme()
 
 	const { params } = useRoute()
-	const {city, date} = params
+	const { city, date } = params
 
 	const { data, loading } = useGetHourly(city, date, [date])
-	console.log('here',data)
 	const [refreshing, setrefreshing] = useState(false)
-	
+
 	const renderItem = ({ item }) => (
 		<HourlyDetailsCard hour={item}></HourlyDetailsCard>
 	)
@@ -23,7 +24,7 @@ export const HourlyDetails = () => {
 				<FlatList
 					data={data}
 					renderItem={renderItem}
-					keyExtractor={(item) => item}
+					keyExtractor={(item) => item?.hourly?.datetime}
 					refreshing={refreshing}
 					onRefresh={() => setrefreshing(true)}
 				/>

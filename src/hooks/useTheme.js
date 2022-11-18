@@ -1,24 +1,24 @@
-import React ,{ useContext } from 'react';
-import { theme } from '../constants';
+import React, { createContext, useContext } from "react"
+import { theme } from "../constants"
 
 export const ThemeContext = createContext({
-  theme: theme,
-  setTheme: () => {},
-});
+	theme: theme,
+	setTheme: () => {},
+})
 
 export const ThemeProvider = ({
-  children,
-  theme = theme,
-  setTheme = () => {},
+	children,
+	theme = theme,
+	setTheme = () => {},
 }) => {
-  return (
-    <ThemeContext.Provider value={{theme, setTheme}}>
-      {children}
-    </ThemeContext.Provider>
-  );
-};
+	return (
+		<ThemeContext.Provider value={{ theme, setTheme }}>
+			{children}
+		</ThemeContext.Provider>
+	)
+}
 
 export const useTheme = () => {
-  const {theme} = useContext(ThemeContext);
-  return theme;
+	const { theme } = useContext(ThemeContext)
+	return theme
 }

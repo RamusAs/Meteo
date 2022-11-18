@@ -5,7 +5,6 @@ export const useGetHourly = (city, date, hookParams) => {
 		`https://weather-api.mathisbarre.com/${city}/${date}`,
 		hookParams
 	)
-	console.log(data);
 
 	return {
 		data: data["hourly"],
