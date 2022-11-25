@@ -1,4 +1,4 @@
-import { Home, CityDetails, HourlyDetails } from "../screens"
+import { HomeScreen, CityDetails, HourlyDetails } from "../screens"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { StyleSheet } from "react-native"
 
@@ -9,8 +9,8 @@ export const HomeStack = () => {
 		<Stack.Navigator>
 			<Stack.Screen
 				style={styles.container}
-				name="HOME"
-				component={Home}
+				name="HomeScreen"
+				component={HomeScreen}
 				options={{ headerShown: false }}
 			/>
 			<Stack.Screen

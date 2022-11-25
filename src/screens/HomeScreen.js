@@ -12,7 +12,7 @@ import { useAtom, citiesAtom } from "../store"
 import { isCity } from "../helpers/match"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-export const Home = () => {
+export const HomeScreen = () => {
 	const { bottom } = useSafeAreaInsets()
 
 	const [searchInput, setSearchInput] = useState("")

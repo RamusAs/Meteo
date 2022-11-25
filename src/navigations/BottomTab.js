@@ -1,4 +1,4 @@
-import { Settings } from "../screens"
+import { SettingsScreen } from "../screens"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { HomeStack } from "./HomeStack"
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -38,7 +38,7 @@ export const BottomTab = () => {
 			/>
 			<Tab.Screen
 				name="Settings"
-				component={Settings}
+				component={SettingsScreen}
 			/>
 		</Tab.Navigator>
 	)

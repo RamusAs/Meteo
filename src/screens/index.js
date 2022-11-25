@@ -1,4 +1,4 @@
-export * from "./Home"
+export * from "./HomeScreen"
 export * from "./CityDetails"
-export * from "./Settings"
+export * from "./SettingsScreen"
 export * from "./HourlyDetails"

@@ -20,7 +20,7 @@ export const HourlyDetails = () => {
 				<FlatList
 					data={data}
 					renderItem={renderItem}
-					keyExtractor={(item) => item?.hourly?.datetime}
+					keyExtractor={(item) => item.datetime}
 					refreshing={refreshing}
 					onRefresh={() => {
 						refetch()
