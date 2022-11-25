@@ -2,8 +2,10 @@ import { Settings } from "../screens"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { HomeStack } from "./HomeStack"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import { light } from "../constants"
 
 export const BottomTab = () => {
+	const { colors, icons } = light
 	const Tab = createBottomTabNavigator()
 	return (
 		<Tab.Navigator
@@ -26,8 +28,8 @@ export const BottomTab = () => {
 						/>
 					)
 				},
-				tabBarActiveTintColor: "blue",
-				tabBarInactiveTintColor: "gray",
+				tabBarActiveTintColor: colors.primary,
+				tabBarInactiveTintColor: colors.gray,
 			})}
 		>
 			<Tab.Screen

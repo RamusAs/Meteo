@@ -1,6 +1,7 @@
 import {Dimensions, Platform} from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
+
 
 // Naming source: https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#Common_weight_name_mapping
 export const WEIGHTS = {
