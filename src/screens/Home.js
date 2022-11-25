@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {
 	StyleSheet,
 	StatusBar,
@@ -17,22 +17,10 @@ export const Home = () => {
 
 	const [searchInput, setSearchInput] = useState("")
 	const [cities, setCities] = useAtom(citiesAtom)
-	const [filtredCities, setFiltredCities] = useState(cities)
-	const [refreshing, setrefreshing] = useState(false)
 
-	useEffect(() => {
-		if (searchInput) {
-			setFiltredCities(
-				cities.filter((el) => el.includes(searchInput.toLocaleLowerCase("fr")))
-			) // on test la recherche en minuscule et sans les espaces en début et en fin
-		} else {
-			setFiltredCities(cities)
-		}
-	}, [searchInput])
-
-	useEffect(() => {
-		setFiltredCities(cities)
-	}, [cities])
+	const filtredCities = searchInput
+		? cities.filter((el) => el.includes(searchInput.toLocaleLowerCase("fr")))
+		: cities
 
 	const addCity = () => {
 		isCity(searchInput) &&
@@ -62,8 +50,6 @@ export const Home = () => {
 		<Article
 			city={item}
 			onDelete={() => onDelete(item)}
-			refreshing={refreshing}
-			refreshEnd={() => setrefreshing(false)}
 		></Article>
 	)
 
@@ -75,8 +61,6 @@ export const Home = () => {
 					data={filtredCities}
 					renderItem={renderItem}
 					keyExtractor={(item) => item}
-					refreshing={refreshing}
-					onRefresh={() => setrefreshing(true)}
 				/>
 			)}
 			{filtredCities?.length === 0 && (

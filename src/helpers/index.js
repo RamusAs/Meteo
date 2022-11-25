@@ -1,5 +1,5 @@
-export * as localStorage from './localStorage'
-export * as match from './match'
+export * as localStorage from "./localStorage"
+export * as match from "./match"
 
-const helpers = { localStorage, match }
+const helpers = { match }
 export default helpers

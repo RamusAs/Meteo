@@ -46,22 +46,10 @@ const styles = StyleSheet.create({
 	},
 })
 
-export const Article = ({
-	city,
-	onDelete,
-	refreshing = false,
-	refreshEnd = () => {},
-}) => {
-	const { current, loading, refetch, isSuccess } = useGetCityMeteo(city, [city])
+export const Article = ({ city, onDelete }) => {
+	const { current, loading, isSuccess } = useGetCityMeteo(city, [city])
 	const navigation = useNavigation()
 	const swipeableRef = useRef()
-
-	useEffect(() => {
-		if (refreshing) {
-			refetch()
-		}
-		refreshEnd()
-	}, [refreshing])
 
 	const renderRightActions = (progress, dragX, onClick) => {
 		return (
