@@ -1,5 +1,3 @@
-
-
   export interface CITY {
     name: string;
     npa: string;

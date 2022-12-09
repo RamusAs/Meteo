@@ -2,6 +2,6 @@ import { CITIES } from "../constants"
 
 export const isCity = (city: string): boolean => {
 	return Object.values(CITIES).some(
-		(city) => city.name.toLowerCase().trim() === city.toLowerCase().trim()
+		(c) => c.name.toLowerCase().trim() === city.toLowerCase().trim()
 	)
 }
